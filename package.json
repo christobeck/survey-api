@@ -1,0 +1,24 @@
+{
+  "name": "survey",
+  "version": "1.0.0",
+  "description": "general assembly project 3",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jamesstaub/survey.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jamesstaub/survey/issues"
+  },
+  "homepage": "https://github.com/jamesstaub/survey",
+  "dependencies": {
+    "body-parser": "^1.13.1",
+    "express": "^4.12.4",
+    "mongoose": "^4.0.5"
+  }
+}
