@@ -6,18 +6,27 @@ var Survey = require('./lib/surveySchema.js');
 var util = require('util');
 var apiRouter = express.Router();
 
+var jade = require('jade');
+var fs = require('fs');
+
+
+// we set our view engine here
+app.set('view engine', 'jade');
+app.set('views', './templates');
+
+
 
 mongoose.connect('mongodb://localhost/surveys');
 var jsonParser = bodyParser.json();
 
 
-apiRouter.get('/surveys', function(req, res) {
+app.get('/surveys', function(req, res) {
   Survey.find({}, function(error, surveyList) {
     res.json(surveyList);
   });
 });
 
-apiRouter.get('/surveys/:id', function(req, res) {
+app.get('/surveys/:id', function(req, res) {
   Survey.find({
     _id: req.params.id
   }, function(error, survey) {
@@ -25,8 +34,8 @@ apiRouter.get('/surveys/:id', function(req, res) {
   });
 });
 
-apiRouter.post('/surveys', jsonParser);
-apiRouter.post('/surveys', function(req, res) {
+app.post('/surveys', jsonParser);
+app.post('/surveys', function(req, res) {
   Survey.create(req.body, function(error, survey) {
     if (error) {
       console.log(error);
@@ -37,8 +46,8 @@ apiRouter.post('/surveys', function(req, res) {
   });
 });
 
-apiRouter.put('/surveys/:id', jsonParser);
-apiRouter.put('/surveys/:id', function(req, res) {
+app.put('/surveys/:id', jsonParser);
+app.put('/surveys/:id', function(req, res) {
   Survey.findByIdAndUpdate(req.params.id, req.body, function(error, survey) {
     if (error) {
       console.log(error);
@@ -49,8 +58,8 @@ apiRouter.put('/surveys/:id', function(req, res) {
   });
 });
 
-apiRouter.patch('/surveys/:id', jsonParser);
-apiRouter.patch('/surveys/:id', function(req, res) {
+app.patch('/surveys/:id', jsonParser);
+app.patch('/surveys/:id', function(req, res) {
   Survey.findByIdAndUpdate(req.params.id, {
     $set: req.body
   }, function(error, survey) {
@@ -63,7 +72,7 @@ apiRouter.patch('/surveys/:id', function(req, res) {
   });
 });
 
-apiRouter.delete('/surveys/:id', function(req, res) {
+app.delete('/surveys/:id', function(req, res) {
   Survey.remove({
     _id: req.params.id
   }, function(error) {
@@ -76,6 +85,11 @@ apiRouter.delete('/surveys/:id', function(req, res) {
   });
 });
 
+// here we mount the apiRouter onto our instance of express
+app.use('/api', apiRouter);
+app.get('/', function(req, res){
+  res.render( 'index', {title: "you got surved"});
+});
 
 var server = app.listen(3000, function() {
 

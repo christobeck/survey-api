@@ -14,9 +14,9 @@ async.series([
 
     function(done) {
       Survey.create({
-        title: 'test survey',
+        title: "test survey",
         questions: [{
-          question: 'what do you think about this?',
+          question: "what do you think about this?",
           answers: [{
             answer: "its good",
             answered_users: [1, 2, 3]
@@ -25,16 +25,15 @@ async.series([
             answered_users: [4, 5, 6]
           }]
         }, {
-          question: 'what do you think about this?',
+          question: "what about this thing?",
           answers: [{
             answer: "its good",
             answered_users: [1, 2, 3]
           }, {
-            answer: "its good",
+            answer: "its bad",
             answered_users: [4, 5, 6]
           }]
         }]
-
       }, done);
     }
   ],
