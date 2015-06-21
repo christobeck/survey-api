@@ -8,7 +8,7 @@ var apiRouter = express.Router();
 
 
 mongoose.connect('mongodb://localhost/surveys');
-jsonParser = bodyParser.json();
+var jsonParser = bodyParser.json();
 
 
 apiRouter.get('/surveys', function(req, res) {
