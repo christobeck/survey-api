@@ -7,7 +7,7 @@ wdi project 3
 * users can register and sign into the app
 * signed in users can create custom surveys with an intuitive front-end interface.
 * each new survey is created at a unique URL.
-* users can respond to surveys (depending if public or private...elaborate here once we decide)
+* logged in users can respond to surveys
 * survey creators can view the survey results
 * survey creators can decide to publically display survey results
 
@@ -29,3 +29,13 @@ wdi project 3
 
 
 
+## Survey Views
+1. Create
+  - authorization: user who is creating the form
+2. Respond
+  - authorization: 1. user with URL
+                   2. home page list of surveys
+3. Results
+ - authorization 1. creator of the form
+                 2. users who responded
+                 3. anyone with URL

@@ -12,7 +12,7 @@ var fs = require('fs');
 
 // we set our view engine here
 app.set('view engine', 'jade');
-app.set('views', './templates');
+app.set('views', './views');
 
 
 
@@ -45,6 +45,8 @@ app.post('/surveys', function(req, res) {
     }
   });
 });
+
+
 
 app.put('/surveys/:id', jsonParser);
 app.put('/surveys/:id', function(req, res) {

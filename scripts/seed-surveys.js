@@ -19,19 +19,19 @@ async.series([
           question: "what do you think about this?",
           answers: [{
             answer: "its good",
-            answered_users: [1, 2, 3]
+            answered_users: {1:true, 2:true, 3:true}
           }, {
             answer: "its good",
-            answered_users: [4, 5, 6]
+            answered_users: {1:true, 2:true, 3:true}
           }]
         }, {
           question: "what about this thing?",
           answers: [{
             answer: "its good",
-            answered_users: [1, 2, 3]
+            answered_users: {1:true, 2:true, 3:true}
           }, {
             answer: "its bad",
-            answered_users: [4, 5, 6]
+            answered_users: {1:true, 2:true, 3:true}
           }]
         }]
       }, done);
