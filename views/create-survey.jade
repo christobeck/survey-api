@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  .row
+    .col-md-6
+      h1 Add a contact
+      form(id="survey-new-form")
+        input(class="form-control", type="text", id="survey-title-input", placeholder="Survey Title")
+        input(class="form-control", type="text", id="survey-url-input", placeholder="Unique URL")
+        .create-question-container
+        button.btn.btn-primary(class="btn", type="submit") Add Another Question
