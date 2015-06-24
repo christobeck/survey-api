@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express(); //create an instance of an express application
-var Survey = require('./models/survey.js');
+var Survey = require('./models/surveys.js');
 var util = require('util');
 var apiRouter = express.Router();
 
