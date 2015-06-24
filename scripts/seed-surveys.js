@@ -2,7 +2,7 @@ var async = require('async');
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/surveys');
 
-var Survey = require('../lib/surveySchema.js');
+var Survey = require('../models/surveys.js');
 
 async.series([
 

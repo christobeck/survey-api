@@ -3,9 +3,11 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 var app = express();
-var Survey = require('./models/surveys.js');
+// var Survey = require('./models/surveys.js');
 var util = require('util');
-var apiRouter = express.Router();
+var routes = require('./routes/index');
+var surveys = require('./routes/surveys');
+// var apiRouter = express.Router();
 
 var jade = require('jade');
 var fs = require('fs');
@@ -24,14 +26,11 @@ mongoose.connect(MongoURI, function(err, res) {
 });
 
 // here we mount the apiRouter onto our instance of express
-app.use('/api', apiRouter);
-
+app.use('/', routes);
+app.use('/surveys/', surveys);
 
 var server = app.listen(3000, function() {
-
   var host = server.address().address;
   var port = server.address().port;
-
   console.log('Example app listening at http://%s:%s', host, port);
-
 });
