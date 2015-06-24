@@ -39,3 +39,10 @@ wdi project 3
  - authorization 1. creator of the form
                  2. users who responded
                  3. anyone with URL
+
+## Note to Instructors
+Please see '/planning-docs' directory for additional supporting documentation.
+Included:
+- Wireframes
+- Whiteboard Discussions
+- User Experience Mapping
