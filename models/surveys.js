@@ -9,7 +9,7 @@ var answerSchema = new mongoose.Schema({
 });
 
 // the range slider could be for cases of "on a scale from 1-5 etc.." where we don't need titles for specific answers.
-var enumeratedInterfaceTypes = ["verticle-buttons", "horizontal-buttons", "range-slider", "text-area"];
+var enumeratedInterfaceTypes = ["verticle", "horizontal", "range", "text"];
 
 // a single question in a survey, with multiple possible answers
 var promptSchema = new mongoose.Schema({
