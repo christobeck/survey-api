@@ -1,5 +1,6 @@
 var express = require('express');
 var mongoose = require('mongoose');
+var path = require('path');
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 var app = express();
@@ -13,6 +14,7 @@ var jade = require('jade');
 var fs = require('fs');
 
 // we set our view engine here
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.set('views', './views');
 
@@ -28,6 +30,10 @@ mongoose.connect(MongoURI, function(err, res) {
 // here we mount the apiRouter onto our instance of express
 app.use('/', routes);
 app.use('/surveys/', surveys);
+
+app.use(require('stylus').middleware(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 var server = app.listen(3000, function() {
   var host = server.address().address;

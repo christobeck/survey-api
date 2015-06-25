@@ -21,7 +21,10 @@
     "body-parser": "^1.13.1",
     "express": "^4.12.4",
     "jade": "^1.11.0",
-    "mongoose": "^4.0.5"
+    "jquery": "^2.1.4",
+    "mongoose": "^4.0.5",
+    "path": "^0.11.14",
+    "stylus": "^0.51.1"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
