@@ -1,6 +1,10 @@
 var express = require('express');
 var mongoose = require('mongoose');
+<<<<<<< HEAD
 var path = require('path');
+=======
+mongoose.set('debug', true);
+>>>>>>> adds jade file for survey response(single.jade)
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 var app = express();
@@ -20,11 +24,11 @@ app.set('views', './views');
 
 var MongoURI = process.env.MONGO_URI || 'mongodb://localhost/surveys';
 mongoose.connect(MongoURI, function(err, res) {
-    if(err) {
-        console.log('ERROR connecting to: ' + MongoURI + '. ' + err);
-    } else {
-        console.log('MongoDB connected successfully to ' + MongoURI);
-    }
+  if (err) {
+    console.log('ERROR connecting to: ' + MongoURI + '. ' + err);
+  } else {
+    console.log('MongoDB connected successfully to ' + MongoURI);
+  }
 });
 
 // here we mount the apiRouter onto our instance of express

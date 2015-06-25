@@ -1,3 +1,19 @@
+
 //- create a template that receives all the questions and possible answers for this survey
 
 //- create another template that shows the results of this survey
+
+extends layout
+block content
+  h1 #{survey.title}
+  div.row
+    each val, index in survey.questions
+      div.col-lg-6
+        div.ques-group(data-val='#{val.id}') #{val.question}
+        div.input-group
+          each value, answer in val.answers
+            div.select-ans-div #{value.answer}
+              span.input-group-addon
+                input.selected-answer(type="radio",name='#{val.question}',value='#{value.id}')
+  button.submit-survey-response(type='submit') Submit Response
+
