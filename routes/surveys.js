@@ -27,16 +27,16 @@ router.get('/', function(req, res) {
 //     })
 // });
 
-<<<<<<< HEAD
+
 router.get('/create', function(req, res) {
   res.render('create-survey', {});
-=======
-router.get('/add', function(req, res) {
-  res.render('add', {
-    survey: {}
+
+  router.get('/add', function(req, res) {
+    res.render('add', {
+      survey: {}
+    });
   });
->>>>>>> adds jade file for survey response(single.jade)
-});
+})
 
 router.route('/:survey_id')
   .all(function(req, res, next) {
@@ -52,18 +52,18 @@ router.route('/:survey_id')
     console.log(survey);
   })
 
-<<<<<<< HEAD
-  .get(function(req, res) {
-    res.render('single', {survey: survey});
-  })
-=======
+
 .get(function(req, res) {
-  console.log(survey);
   res.render('single', {
     survey: survey
   });
 })
->>>>>>> adds jade file for survey response(single.jade)
+  .get(function(req, res) {
+    console.log(survey);
+    res.render('single', {
+      survey: survey
+    });
+  })
 
 .post(function(req, res) {
   survey.notes.push({

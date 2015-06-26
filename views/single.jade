@@ -9,11 +9,11 @@ block content
   div.row
     each val, index in survey.questions
       div.col-lg-6
-        div.ques-group(data-val='#{val.id}') #{val.question}
+        div.ques-group(data-val='#{survey.id}') #{val.question}
         div.input-group
           each value, answer in val.answers
             div.select-ans-div #{value.answer}
               span.input-group-addon
-                input.selected-answer(type="radio",name='#{val.question}',value='#{value.id}')
-  button.submit-survey-response(type='submit') Submit Response
+                input.selected-answer(type="radio",name='#{val.id}',value='#{value.id}')
+  button.submit-survey-response(type='button') Submit Response
 

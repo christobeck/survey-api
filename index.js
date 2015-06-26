@@ -1,10 +1,7 @@
 var express = require('express');
 var mongoose = require('mongoose');
-<<<<<<< HEAD
 var path = require('path');
-=======
-mongoose.set('debug', true);
->>>>>>> adds jade file for survey response(single.jade)
+// mongoose.set('debug', true);
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 var app = express();
