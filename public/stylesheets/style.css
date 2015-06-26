@@ -13,3 +13,34 @@
 .close{
   color:#FF0000;
 }
+
+.answers-container{
+    width: 100%;
+}
+
+
+.answer-type-list li{
+}
+
+.form-group .answer-creator,
+.answer-creator {
+  padding: 10px;
+  background-color: white;
+  width: 100%;
+}
+
+.answer-container{
+  background-color: #ee0;
+
+}
+
+ .range-settings{
+  text-align: center;
+  margin: 0 auto;
+  display: inline-block;
+}
+
+input[type="number"]{
+  width: 10%;
+  display: inline;
+}
