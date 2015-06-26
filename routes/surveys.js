@@ -24,8 +24,8 @@ router.get('/', function(req, res) {
 //     })
 // });
 
-router.get('/add', function(req, res) {
-  res.render('add', {survey: {}});
+router.get('/create', function(req, res) {
+  res.render('create-survey', {});
 });
 
 router.route('/:survey_id')
@@ -39,7 +39,7 @@ router.route('/:survey_id')
   })
 
   .get(function(req, res) {
-    res.render('edit', {survey: survey});
+    res.render('single', {survey: survey});
   })
 
   .post(function(req, res) {

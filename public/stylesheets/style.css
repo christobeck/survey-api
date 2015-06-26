@@ -1,0 +1,15 @@
+/*** Create a new survey form ****/
+.create-question{
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #eee;
+}
+
+.new-survey {
+  background-color: #ddd;
+  padding: 20px;
+}
+
+.close{
+  color:#FF0000;
+}

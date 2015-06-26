@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  .row
+    .col-md-6.col-md-offset-3
+      .new-survey
+        h1 Add a new survey
+        form(id="survey-new-form")
+          div.form-group
+            input(class="form-control", type="text", id="survey-title-input", placeholder="Survey Title")
+          div.form-group
+            input(class="form-control", type="text", id="survey-url-input", placeholder="Unique URL")
+          .questions-container
+            .answers-container
+
+
+        button.btn.btn-primary.add-new-question(type="text") Add Another Question

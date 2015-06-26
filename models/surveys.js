@@ -6,12 +6,10 @@ var answerSchema = new mongoose.Schema({
     type:String
   },
   answered_users: {} //a hash of all the user id's who chose this answer to a given question.
-
 });
 
-// just some ideas here for choosing different interfaces for each question.
 // the range slider could be for cases of "on a scale from 1-5 etc.." where we don't need titles for specific answers.
-var enumeratedInterfaceTypes = ["verticle-buttons", "horizontal-buttons", "range-slider", "text-area"];
+var enumeratedInterfaceTypes = ["verticle", "horizontal", "range", "text"];
 
 // a single question in a survey, with multiple possible answers
 var promptSchema = new mongoose.Schema({
@@ -25,26 +23,28 @@ var promptSchema = new mongoose.Schema({
       values: enumeratedInterfaceTypes
     }
   },
-  answers:[answerSchema] //
+  answers:[answerSchema]
 });
-
 
 var surveySchema = new mongoose.Schema({
   title: {
     type:String,
     required: true
   },
+  url: {
+    type:String,
+    required:true,
+    unique:true
+  },
   questions:[promptSchema],
   answersPublic: {
     type:Boolean,
     default: false
   },
-  // creator_id: Schema.Types.ObjectId,  Not sure if this is the right syntax, need to research storing a user object's ID in another collection
-  activeThroughDate:{type:Date}, //set date when the survey is no longer editable
+  activeThroughDate:{type: Date}, //set date when the survey is no longer editable
 });
 
-var Survey = mongoose.model('Question', surveySchema);
-
+var Survey = mongoose.model('Survey', surveySchema);
 
 // validate that a user cannot answer more than one question for a given answer
 Survey.schema.path('questions').schema.path('answers').schema.path('answered_users').validate(function(features){
