@@ -1,12 +1,15 @@
 var express = require('express');
 var router = express.Router();
 var Survey = require('../models/surveys');
+var User = require('../models/users');
+var session = require('client-sessions');
 
 router.get('/', function(req, res) {
   Survey.find({}, function(err, surveys, count) {
     res.render('list', {
       surveys: surveys
     });
+
   });
 });
 
@@ -26,7 +29,36 @@ router.get('/', function(req, res) {
 //       }
 //     })
 // });
+router.get('/login', function(req, res) {
+  res.render('login', {
+    title: "Survey Says"
+  });
+});
+// var passport = require('passport');
+// var LocalStrategy = require('passport-local').Strategy;
+// var passport = require('../authorization/auth.js');
+// app.use(passport.initialize());
+// app.use(passport.session());
 
+// router.post('/login', bodyParser());
+// router.post('/login', jsonParser);
+// router.post('/login', passport.authenticate('local', {
+//   // successRedirect: '/',
+//   // failureRedirect: '/signin'
+// }), function(req, res) {
+//   console.log()
+//   var contact = req.body;
+//   if (req.user != undefined) {
+//     console.log(contact);
+//     console.log(req.user.id)
+//   }
+
+//   res.end();
+// });
+// router.post('/login', passport.authenticate('local', {
+//   // successRedirect: 'surveys/login',
+//   // failureRedirect: '/signin'
+// }));
 
 router.get('/create', function(req, res) {
   res.render('create-survey', {});
@@ -58,12 +90,6 @@ router.route('/:survey_id')
     survey: survey
   });
 })
-  .get(function(req, res) {
-    console.log(survey);
-    res.render('single', {
-      survey: survey
-    });
-  })
 
 .post(function(req, res) {
   survey.notes.push({

@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var autopopulate = require('mongoose-autopopulate');
-
+var credential = require('credential');
 
 
 var userSchema = new mongoose.Schema({
@@ -39,6 +39,25 @@ var loginSchema = new mongoose.Schema({
     autopopulate: true
   }
 });
+
+userSchema.methods.setPassword = function(newPassword, next) {
+  credential.hash(newPassword, function(error, hash) {
+    if (error) {
+      return next(error);
+    } else {
+      this.password = hash;
+      this.save(next);
+    }
+  });
+};
+
+userSchema.methods.verifyPassword = function(testPasswrod, next) {
+  credential.verify(this.password, testPasswrod, done);
+};
+
+
+
+// loginSchema.plugin(passportLocalMongoose);
 
 var User = mongoose.model('User', loginSchema)
 module.exports = User;

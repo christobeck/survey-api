@@ -2,6 +2,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
 var User = require('../models/users.js');
+var session = require('client-sessions');
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
@@ -26,8 +27,8 @@ passport.use(new LocalStrategy(
 
 passport.serializeUser(function(user, done) {
   console.log('serializing user: %j', user);
-  console.log('result is %j', user);
-  done(null, user);
+  console.log('result is %j', user.name);
+  done(null, user.id);
 });
 
 passport.deserializeUser(function(user, done) {

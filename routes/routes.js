@@ -1,16 +1,18 @@
 var passport = require('passport');
 
-app.post('/local-register',
-  ///create user here
-  ///this function just logs in created user
-  req.login(user, function(err) {
-    if (err) {
-      return next(err);
-    }
-    return res.redirect('/users/' + req.user.username);
-  }));
+// app.post('/local-register',
+//   ///create user here
+//   ///this function just logs in created user
+//   req.login(user, function(err) {
+//     if (err) {
+//       return next(err);
+//     }
+//     return res.redirect('/users/' + req.user.username);
+//   }));
 
-
+router.get('/login', function(req, res) {
+  res.render('login', { title: 'Survey Says!?' });
+});
 
 app.post('/login', passport.authenticate('local', {
   successRedirect: '/',
@@ -25,3 +27,5 @@ app.get('/logout', function(req, res) {
   res.redirect('/');
   req.session.notice = "You have successfully been logged out " + name + "!";
 });
+
+

@@ -6,11 +6,6 @@ $(document).ready(function() {
     var response_id_array = [];
     var survey_id = $('.ques-group').data('val');
     $('input[type=radio]').each(function(question, answer) {
-      // if (answer.checked) {
-      //   response_id_hash[answer.name] = [
-      //     answer.value, true
-      //   ]
-      // }
       if (answer.checked) {
         response_store = {
           question_id: answer.name,
@@ -26,10 +21,11 @@ $(document).ready(function() {
       type: 'POST',
       url: "http://localhost:3000/surveys/" + survey_id,
       // header: localStorage.token,
-      data: {
+      data: JSON.stringify({
         survey_id: survey_id,
         questions: response_id_array
-      }
+      }),
+      dataType: "json"
     }).done(function() {
       alert("success!");
     }).fail(function() {
