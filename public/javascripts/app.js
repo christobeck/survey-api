@@ -103,12 +103,10 @@ $(document).on('click', '.submit-new-survey', function(){
         thisAnswer.min = $(this).find('input .range-min').val();
         thisAnswer.max = $(this).find('input .range-max').val();
         return thisAnswer;
-
       } else {
         thisAnswer.answer = $(this).find('input').val();
         return thisAnswer;
       }
-
     });
 
     thisQuestion.question = $(this).find('.create-question-title').val();
@@ -120,13 +118,28 @@ $(document).on('click', '.submit-new-survey', function(){
     // return $(this).attr('data-download');
   });
 
-
-
   newSurvey.questions = questions;
-
   console.log(newSurvey);
 
+  $.ajax({
+    url: '/create',
+    type: 'POST',
+    data: {survey: newSurvey},
+  })
+  .done(function() {
+    console.log("success");
+  })
+  .fail(function() {
+    console.log("error");
+  })
+  .always(function() {
+    console.log("complete");
+  });
+
+
 });
+
+
 
 
 

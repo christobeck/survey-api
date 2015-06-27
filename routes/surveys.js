@@ -42,16 +42,21 @@ router.route('/:survey_id')
     res.render('single', {survey: survey});
   })
 
-  .post(function(req, res) {
-    survey.notes.push({
-      note: req.body.notes
+  .post('/create', function(req, res) {
+    Survey.create(req.body, function(error, contact) {
+      if (error) {
+        console.log(error);
+        res.sendStatus(400);
+      } else {
+        res.sendStatus(201);
+      }
     });
 
     survey.save(function(err, survey, count) {
       if(err) {
-        res.status(400).send('Error adding note: ' + err);
+        res.status(400).send('Error: ' + err);
       } else {
-        res.send('Note added!');
+        res.send('survey added!');
       }
     });
   })

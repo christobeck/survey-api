@@ -27,7 +27,9 @@ mongoose.connect(MongoURI, function(err, res) {
     }
 });
 
-// here we mount the apiRouter onto our instance of express
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use('/', routes);
 app.use('/surveys/', surveys);
 
