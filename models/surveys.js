@@ -10,7 +10,7 @@ var answerSchema = new mongoose.Schema({
   },
   max:{
     type:Number
-  }
+  },
   answered_users: {} //a hash of all the user id's who chose this answer to a given question.
 });
 

@@ -90,14 +90,15 @@ $(document).on('click', '.submit-new-survey', function(){
   newSurvey.url = $('#survey-url-input').val();
 
 // iterate over each question creator container
-  var questions = $('.create-question').map(function() {
+  var questions = []
+  $('.create-question').map(function() {
     var thisQuestion = {};
     var thisID = $(this).data('question-id');
     var thisInterfaceType = $(this).find('.active a').data('answer-type');
 
-    var answers = $(this).find('.answer-creator').map(function(){
+    var answers = []
+    $(this).find('.answer-creator').map(function(){
       thisAnswer = {};
-
 
       if( $(this).hasClass('range-settings') ){
         thisAnswer.min = $(this).find('input .range-min').val();
@@ -105,7 +106,7 @@ $(document).on('click', '.submit-new-survey', function(){
         return thisAnswer;
       } else {
         thisAnswer.answer = $(this).find('input').val();
-        return thisAnswer;
+        answers.push(thisAnswer);
       }
     });
 
@@ -114,7 +115,7 @@ $(document).on('click', '.submit-new-survey', function(){
     thisQuestion.id = thisID;
     thisQuestion.interfaceType = thisInterfaceType;
 
-    return thisQuestion
+     questions.push(thisQuestion)
     // return $(this).attr('data-download');
   });
 
@@ -122,15 +123,16 @@ $(document).on('click', '.submit-new-survey', function(){
   console.log(newSurvey);
 
   $.ajax({
-    url: '/create',
+    url: 'http://localhost:3000/surveys',
     type: 'POST',
-    data: {survey: newSurvey},
+    data: JSON.stringify(newSurvey),
+    contentType: "application/json; charset=utf-8"
   })
   .done(function() {
     console.log("success");
   })
-  .fail(function() {
-    console.log("error");
+  .fail(function(response) {
+    console.log(response.responseText);
   })
   .always(function() {
     console.log("complete");
@@ -138,6 +140,7 @@ $(document).on('click', '.submit-new-survey', function(){
 
 
 });
+
 
 
 

@@ -9,57 +9,58 @@ router.get('/', function(req, res) {
 });
 
 // update this to reflect the survey model!
-// router.post('/', function(req, res) {
-//     new Survey({
-//       name: req.body.fullname,
-//       job: req.body.job,
-//       nickname: req.body.nickname,
-//       email: req.body.email
-//     }).save(function(err, survey, count) {
-//       if(err) {
-//         res.status(400).send('Error saving new survey: ' + err);
-//       } else {
-//         res.send("New survey created");
-//       }
-//     })
-// });
+router.post('/', function(req, res) {
+    new Survey({
+      title: req.body.title,
+      url: req.body.url,
+      questions: req.body.questions
+    }).save(function(err, survey, count) {
+      if(err) {
+        res.status(400).send('Error saving new survey: ' + err);
+      } else {
+        res.send("New survey created");
+      }
+    })
+});
 
 router.get('/create', function(req, res) {
   res.render('create-survey', {});
 });
 
-router.route('/:survey_id')
-  .all(function(req, res, next) {
-    survey_id = req.params.survey_id;
-    survey = {};
-    Survey.findById(survey_id, function(err, c) {
-      survey = c;
-      next();
-    });
-  })
 
-  .get(function(req, res) {
-    res.render('single', {survey: survey});
-  })
 
-  .post('/create', function(req, res) {
-    Survey.create(req.body, function(error, contact) {
-      if (error) {
-        console.log(error);
-        res.sendStatus(400);
-      } else {
-        res.sendStatus(201);
-      }
-    });
+// router.route('/:survey_id')
+//   .all(function(req, res, next) {
+//     survey_id = req.params.survey_id;
+//     survey = {};
+//     Survey.findById(survey_id, function(err, c) {
+//       survey = c;
+//       next();
+//     });
+//   })
 
-    survey.save(function(err, survey, count) {
-      if(err) {
-        res.status(400).send('Error: ' + err);
-      } else {
-        res.send('survey added!');
-      }
-    });
-  })
+//   .get(function(req, res) {
+//     res.render('single', {survey: survey});
+//   })
+
+//   .post(function(req, res) {
+//     // Survey.create(req.body, function(error, contact) {
+//     //   if (error) {
+//     //     console.log(error);
+//     //     res.sendStatus(400);
+//     //   } else {
+//     //     res.sendStatus(201);
+//     //   }
+//     });
+
+//     survey.save(function(err, survey, count) {
+//       if(err) {
+//         res.status(400).send('Error: ' + err);
+//       } else {
+//         res.send('survey added!');
+//       }
+//     });
+//   })
 // update this to reflect the survey model!
   // .put(function(req, res) {
   //   survey.name = req.body.fullname;
@@ -76,14 +77,14 @@ router.route('/:survey_id')
   //   });
   // })
 
-  .delete(function(req, res) {
-    survey.remove(function(err, survey) {
-      if(err) {
-        res.status(400).send("Error removing survey: " + err);
-      } else {
-        res.send('Survey removed');
-      }
-    });
-  });
+  // .delete(function(req, res) {
+  //   survey.remove(function(err, survey) {
+  //     if(err) {
+  //       res.status(400).send("Error removing survey: " + err);
+  //     } else {
+  //       res.send('Survey removed');
+  //     }
+  //   });
+  // });
 
 module.exports = router;
