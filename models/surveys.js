@@ -5,6 +5,12 @@ var answerSchema = new mongoose.Schema({
   answer:{
     type:String
   },
+  min:{
+    type:Number
+  },
+  max:{
+    type:Number
+  }
   answered_users: {} //a hash of all the user id's who chose this answer to a given question.
 });
 
@@ -12,7 +18,7 @@ var answerSchema = new mongoose.Schema({
 var enumeratedInterfaceTypes = ["multiple", "range", "text"];
 
 // a single question in a survey, with multiple possible answers
-var promptSchema = new mongoose.Schema({
+var questionSchema = new mongoose.Schema({
   question: {
     type: String,
     required: true,
@@ -36,7 +42,7 @@ var surveySchema = new mongoose.Schema({
     required:true,
     unique:true
   },
-  questions:[promptSchema],
+  questions:[questionSchema],
   answersPublic: {
     type:Boolean,
     default: false
@@ -45,7 +51,6 @@ var surveySchema = new mongoose.Schema({
 });
 
 var Survey = mongoose.model('Survey', surveySchema);
-
 // validate that a user cannot answer more than one question for a given answer
 Survey.schema.path('questions').schema.path('answers').schema.path('answered_users').validate(function(features){
   //1 create an array of all the user IDs
