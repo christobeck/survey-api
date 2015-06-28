@@ -29,6 +29,21 @@ router.get('/create', function(req, res) {
 
 
 
+router.route('/:survey_url')
+  .all(function(req, res, next) {
+    survey_url = req.params.survey_url;
+    survey = {};
+    Survey.findOne({'url' : survey_url}, function(err, s){
+      survey = s;
+      next();
+    });
+  })
+
+  .get(function(req, res) {
+    console.log(survey);
+    res.render('single', survey);
+  })
+
 // router.route('/:survey_id')
 //   .all(function(req, res, next) {
 //     survey_id = req.params.survey_id;
