@@ -40,7 +40,8 @@ var surveySchema = new mongoose.Schema({
   url: {
     type:String,
     required:true,
-    unique:true
+    unique:true,
+    match: /\w\s\-/
   },
   questions:[questionSchema],
   answersPublic: {
