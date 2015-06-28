@@ -28,8 +28,7 @@ router.get('/create', function(req, res) {
 });
 
 
-
-router.route('/:survey_url')
+router.route('/validate/:survey_url')
   .all(function(req, res, next) {
     survey_url = req.params.survey_url;
     survey = {};
@@ -38,10 +37,13 @@ router.route('/:survey_url')
       next();
     });
   })
-
   .get(function(req, res) {
-    console.log(survey);
-    res.render('single', survey);
+    if(survey){
+      res.json({available: false});
+    }else{
+      res.json({available: true});
+    }
+
   })
 
 // router.route('/:survey_id')

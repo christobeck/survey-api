@@ -155,25 +155,28 @@ $(document).on('keyup', '#survey-title-input', function(){
 });
 
 
-var checkValidURL = function(url){
-  $.get(siteURL, function(res){
-    console.log("get response" + res)
+var checkValidURL = function(){
+  var url = $('#survey-url-input').val();
+  $.get(siteURL+'/validate/'+url, function(res){
+    // console.log("get res" + res);
   })
   .done(function(res){
-    console.log("done res" + res);
+    console.log(res.available);
+    if(res.available){
+      $('.survey-url-group .alert').hide();
+    } else{
+      // $('.survey-url-group').addClass('.invalid-input');
+      $('.survey-url-group .alert').show();
+    }
   })
   .fail(function(res){
-    console.log("fail res" + res);
+    console.log(res);
   });
 }
 
-
-$(document).on('blur', '#survey-title-input', function(){
-
-});
-
-$(document).on('blur', '#survey-title-input', function(){
-
-});
+// events that check if the input url is already taken
+$(document).on('blur', '#survey-title-input', checkValidURL );
+$(document).on('blur', '#survey-url-input', checkValidURL);
+$(document).on('keyup', '#survey-url-input', checkValidURL);
 
 

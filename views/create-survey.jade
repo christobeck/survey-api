@@ -11,6 +11,9 @@ block content
           div.form-group.survey-url-group
             span.url-prefix
             input(class="form-control", type="text", id="survey-url-input", placeholder="Unique URL")
+            .alert.alert-danger(role="alert")
+              span.glyphicon.glyphicon-exclamation-sign
+              span.alert-msg Survey URL unavailable
           .questions-container
         button.btn.btn-primary.add-new-question(type="text") Add Another Question
       .alert.alert-danger(role="alert")

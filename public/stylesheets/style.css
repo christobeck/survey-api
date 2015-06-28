@@ -74,3 +74,8 @@ input[type="number"]{
 .alert{
   display: none;
 }
+
+
+.invalid-input{
+  background-color: rgba(200, 0, 0, 0.2);
+}
