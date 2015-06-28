@@ -18,7 +18,7 @@ router.post('/', function(req, res) {
       if(err) {
         res.status(400).send('Error saving new survey: ' + err);
       } else {
-        res.send("New survey created");
+        res.json(survey);
       }
     })
 });
@@ -27,7 +27,7 @@ router.get('/create', function(req, res) {
   res.render('create-survey', {});
 });
 
-
+// checks if entered survey url is already taken
 router.route('/validate/:survey_url')
   .all(function(req, res, next) {
     survey_url = req.params.survey_url;
@@ -43,8 +43,28 @@ router.route('/validate/:survey_url')
     }else{
       res.json({available: true});
     }
+  });
 
+
+// route to the actual survey that was created
+router.route('/:survey_url')
+  .all(function(req, res, next) {
+    survey_url = req.params.survey_url;
+    survey = {};
+    Survey.findOne({'url' : survey_url}, function(err, s){
+      survey = s;
+      next();
+    });
   })
+  .get(function(req, res) {
+    if(survey){
+      res.render('single', survey);
+    }else{
+      res.render('not-found');
+    }
+  });
+
+
 
 // router.route('/:survey_id')
 //   .all(function(req, res, next) {

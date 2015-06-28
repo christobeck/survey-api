@@ -1,5 +1,6 @@
 var siteURL = 'http://localhost:3000/surveys';
 
+
 // keep track of each question that gets created to associate it's nested properties and answers
 var questionCount = 0;
 
@@ -123,7 +124,7 @@ $(document).on('click', '.submit-new-survey', function(){
   });
 
   newSurvey.questions = questions;
-  console.log(newSurvey);
+  // console.log(newSurvey);
 
   $.ajax({
     url: siteURL,
@@ -131,16 +132,14 @@ $(document).on('click', '.submit-new-survey', function(){
     data: JSON.stringify(newSurvey),
     contentType: "application/json; charset=utf-8"
   })
-  .done(function() {
-    console.log("success");
+  .done(function(res) {
+
+    window.location.href = siteURL+'/'+res.url;
   })
   .fail(function(response) {
     $('.alert').show();
     $('.alert-msg').html(response.responseText);
     // console.log(response);
-  })
-  .always(function() {
-    console.log("complete");
   });
 
 
@@ -150,7 +149,8 @@ $(document).on('click', '.submit-new-survey', function(){
 
 $(document).on('keyup', '#survey-title-input', function(){
   var url = $(this).val().toLowerCase();
-  url = url.replace(/(\s)+/g, '-');
+  url = url.replace(/[^\w\s]/gi, '') //remove non alphanumeric
+  url = url.replace(/(\s)+/g, '-'); //spaces to dashes
   $('#survey-url-input').val(url);
 });
 
