@@ -1,6 +1,12 @@
+var siteURL = 'http://localhost:3000/surveys';
+
+// keep track of each question that gets created to associate it's nested properties and answers
 var questionCount = 0;
+
+// the object that we will pack the form data into and send in the POST request
 var newSurvey = {};
 
+// DOM junk
 var templates = {
     question: function(id){
       return' \
@@ -40,6 +46,7 @@ var templates = {
 
 $( document ).ready(function() {
   $('.questions-container').append(templates.question);
+  $('.url-prefix').html(siteURL);
 });
 
 
@@ -80,11 +87,7 @@ $(document).on('click', '.add-another-answer', function(){
 
 
 $(document).on('click', '.submit-new-survey', function(){
-
-  // $('input').each(function(i){
-  //   newSurvey.questions.push
-  //   $(this).val();
-  // });
+  $('.alert').hide();
 
   newSurvey.title = $('#survey-title-input').val();
   newSurvey.url = $('#survey-url-input').val();
@@ -109,7 +112,7 @@ $(document).on('click', '.submit-new-survey', function(){
         answers.push(thisAnswer);
       }
     });
-
+// pack the input values into the survey object
     thisQuestion.question = $(this).find('.create-question-title').val();
     thisQuestion.answers = answers;
     thisQuestion.id = thisID;
@@ -123,7 +126,7 @@ $(document).on('click', '.submit-new-survey', function(){
   console.log(newSurvey);
 
   $.ajax({
-    url: 'http://localhost:3000/surveys',
+    url: siteURL,
     type: 'POST',
     data: JSON.stringify(newSurvey),
     contentType: "application/json; charset=utf-8"
@@ -132,7 +135,9 @@ $(document).on('click', '.submit-new-survey', function(){
     console.log("success");
   })
   .fail(function(response) {
-    console.log(response.responseText);
+    $('.alert').show();
+    $('.alert-msg').html(response.responseText);
+    // console.log(response);
   })
   .always(function() {
     console.log("complete");
@@ -141,14 +146,34 @@ $(document).on('click', '.submit-new-survey', function(){
 
 });
 
+/***** create url string from title, check for uniqueness *****/
+
+$(document).on('keyup', '#survey-title-input', function(){
+  var url = $(this).val().toLowerCase();
+  url = url.replace(/(\s)+/g, '-');
+  $('#survey-url-input').val(url);
+});
 
 
+var checkValidURL = function(url){
+  $.get(siteURL, function(res){
+    console.log("get response" + res)
+  })
+  .done(function(res){
+    console.log("done res" + res);
+  })
+  .fail(function(res){
+    console.log("fail res" + res);
+  });
+}
 
 
+$(document).on('blur', '#survey-title-input', function(){
 
-// for each .create-question
-//   ul
-//     this data-question-id
-//       if li has class active
-//         this li data-answer-type
-//   if (multiple) .answers-container
+});
+
+$(document).on('blur', '#survey-title-input', function(){
+
+});
+
+

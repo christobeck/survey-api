@@ -19,6 +19,17 @@
   font-size: 26px;
 }
 
+#survey-url-input{
+  display: inline;
+  width: 50%;
+}
+
+.url-prefix {
+  float: left;
+  padding: 5px;
+  font-size: 15px;
+}
+
 .answers-container{
     width: 100%;
     background-color: white;
@@ -58,4 +69,8 @@ input[type="number"]{
   display: block;
   margin: 20px auto;
   width: 100%;
+}
+
+.alert{
+  display: none;
 }

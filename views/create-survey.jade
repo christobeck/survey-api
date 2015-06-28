@@ -8,8 +8,13 @@ block content
         form(id="survey-new-form")
           div.form-group
             input(class="form-control", type="text", id="survey-title-input", placeholder="Survey Title")
-          div.form-group
+          div.form-group.survey-url-group
+            span.url-prefix
             input(class="form-control", type="text", id="survey-url-input", placeholder="Unique URL")
           .questions-container
         button.btn.btn-primary.add-new-question(type="text") Add Another Question
+      .alert.alert-danger(role="alert")
+        span.glyphicon.glyphicon-exclamation-sign
+        span.alert-msg
+
       button.btn.btn-lg.btn-primary.submit-new-survey(type="text") Create Survey
