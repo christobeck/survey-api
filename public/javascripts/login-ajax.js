@@ -17,7 +17,7 @@ $(document).ready(function() {
           }),
           dataType: "json"
         }).done(function(data, textstatus) {
-          localStorage.setItem('userId', data.id);
+          console.log(data);
           alert("success!");
         }).fail(function() {
           alert("please login");

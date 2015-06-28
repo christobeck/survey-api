@@ -14,6 +14,16 @@ var userSchema = new mongoose.Schema({
   },
   email: {
     type: String,
+    required: true,
+    unique: true
+  },
+  username: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  password: {
+    type: String,
     required: true
   },
   surveyCreated: [{
@@ -24,40 +34,40 @@ var userSchema = new mongoose.Schema({
   }]
 })
 
-var loginSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    required: true
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  userProfile: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'UserProfile',
-    autopopulate: true
-  }
-});
+// var loginSchema = new mongoose.Schema({
+//   username: {
+//     type: String,
+//     required: true
+//   },
+//   password: {
+//     type: String,
+//     required: true
+//   },
+//   userProfile: {
+//     type: mongoose.Schema.Types.ObjectId,
+//     ref: 'UserProfile',
+//     autopopulate: true
+//   }
+// });
 
-userSchema.methods.setPassword = function(newPassword, next) {
-  credential.hash(newPassword, function(error, hash) {
-    if (error) {
-      return next(error);
-    } else {
-      this.password = hash;
-      this.save(next);
-    }
-  });
-};
+// userSchema.methods.setPassword = function(newPassword, next) {
+//   credential.hash(newPassword, function(error, hash) {
+//     if (error) {
+//       return next(error);
+//     } else {
+//       this.password = hash;
+//       this.save(next);
+//     }
+//   });
+// };
 
-userSchema.methods.verifyPassword = function(testPasswrod, next) {
-  credential.verify(this.password, testPasswrod, done);
-};
+// userSchema.methods.verifyPassword = function(testPasswrod, next) {
+//   credential.verify(this.password, testPasswrod, done);
+// };
 
 
 
 // loginSchema.plugin(passportLocalMongoose);
 
-var User = mongoose.model('User', loginSchema)
+var User = mongoose.model('User', userSchema)
 module.exports = User;
