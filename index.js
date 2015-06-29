@@ -8,22 +8,26 @@ var app = express();
 var util = require('util');
 var routes = require('./routes/index');
 var surveys = require('./routes/surveys');
-var bCrypt = require('bcrypt')
-  // var auth = require('./routes/auth')
-  // var apiRouter = express.Router();
+var bCrypt = require('bcrypt');
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 var morgan = require('morgan');
-app.use(morgan('dev'));
-
 var jade = require('jade');
 var fs = require('fs');
 
-var session = require('client-sessions');
-app.use(session({
-  cookieName: 'session',
-  secret: 'random_string_goes_here',
-  duration: 1000 * 60 * 1000,
-  activeDuration: 1000 * 60 * 1000,
-}));
+app.use(morgan('dev'));
+
+
+
+
+
+// var session = require('client-sessions');
+// app.use(session({
+//   cookieName: 'session',
+//   secret: 'random_string_goes_here',
+//   duration: 1000 * 60 * 1000,
+//   activeDuration: 1000 * 60 * 1000,
+// }));
 // we set our view engine here
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -38,9 +42,21 @@ mongoose.connect(MongoURI, function(err, res) {
   }
 });
 
+
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    secure: false
+  },
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection
+  })
+}))
 // here we mount the apiRouter onto our instance of express
-app.use('/', routes);
-app.use('/surveys/', surveys);
+
+
 
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -87,12 +103,11 @@ passport.serializeUser(function(user, done) {
   console.log('serializing user: %j', user);
   console.log('result is %j', user.username);
   done(null, user.id);
+
 });
 
-passport.deserializeUser(function(user, done) {
-  User.find({
-    username: user.name
-  }, function(error, user) {
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(error, user) {
     console.log('deserializing user: %j', user);
     // console.log('result is %j', user);
     done(error, user);
@@ -154,33 +169,21 @@ var createHash = function(password) {
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.get('/me', function(req, res) {
+  console.log(req.user);
+  res.json(req.user || {});
+});
 
 app.post('/login', bodyParser());
 app.post('/login', jsonParser);
-app.post('/login', passport.authenticate('login', {}), function(req, res) {
-  var contact = req.body;
-  if (req.user != undefined) {
-    console.log(contact);
-    console.log(req.user.id)
-
-  }
-
-  res.end();
-});
+app.post('/login', passport.authenticate('login', {
+  successRedirect: '/surveys',
+  failureRedirect: '/surveys/login'
+}));
 
 app.post('/signup', bodyParser());
 app.post('/signup', jsonParser);
-app.post('/signup', passport.authenticate('signup', {}), function(req, res) {
-  console.log()
-  var contact = req.body;
-  if (req.user != undefined) {
-    console.log(contact);
-    console.log(req.user.id)
-
-  }
-
-  res.end();
-});
+app.post('/signup', passport.authenticate('signup', {}));
 
 
 
@@ -191,7 +194,8 @@ app.get('/logout', function(req, res) {
   res.redirect('/');
   req.session.notice = "You have successfully been logged out " + name + "!";
 });
-
+app.use('/surveys/', surveys);
+app.use('/', routes);
 var server = app.listen(3000, function() {
   var host = server.address().address;
   var port = server.address().port;

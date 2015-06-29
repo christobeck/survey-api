@@ -23,6 +23,10 @@ router.get('/', function(req, res) {
   });
 });
 
+router.get('/me', function(req, res) {
+  console.log('ME: ' + req.user);
+  res.json(req.user || {});
+});
 
 router.get('/login', function(req, res) {
   res.render('login', {
@@ -62,8 +66,8 @@ router.route('/:survey_id')
 })
 
 .patch(function(req, res) {
-
-  console.log(req.body.questions)
+  console.log("user session: " + req.user);
+  console.log("body: " + req.body && req.body.questions)
   //{"response_data":["Kinjal",[{"question_id":"558c56701ae5cd98098a5348","answers":{"answer_id":"558c56701ae5cd98098a5349"}},{"question_id":"558c56701ae5cd98098a5345","answers":{"answer_id":"558c56701ae5cd98098a5346"}}]]}
   res_questions = req.body.questions
   var json_questions = JSON.parse(res_questions);
@@ -79,7 +83,10 @@ router.route('/:survey_id')
   User.findOne({
     'username': username
   }, function(err, user) {
-    userId = user.id;
+    if (user) {
+      userId = user.id;
+    }
+
     console.log("step4:" + userId);
   })
   for (var i = 1; i < response_array.length; i++) {
