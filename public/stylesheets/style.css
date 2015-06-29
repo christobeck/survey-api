@@ -1,3 +1,9 @@
+/*** global ***/
+
+
+
+
+
 /*** Create a new survey form ****/
 .create-question{
   padding: 10px;
@@ -37,9 +43,6 @@
 }
 
 
-.answer-type-list li{
-}
-
 .form-group .answer-creator,
 .answer-creator {
   padding: 10px;
@@ -47,7 +50,6 @@
   width: 100%;
   margin: 5px;
 }
-
 
 .add-another-answer{
   float: right;
@@ -75,7 +77,7 @@ input[type="number"]{
   display: none;
 }
 
-
 .invalid-input{
   background-color: rgba(200, 0, 0, 0.2);
 }
+

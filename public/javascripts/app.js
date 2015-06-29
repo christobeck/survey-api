@@ -12,7 +12,7 @@ var templates = {
     question: function(id){
       return' \
         <div class="create-question" data-question-id="'+id+'"> \
-          <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button> \
+          <button type="button" class="close rm-question" aria-label="Close"><span aria-hidden="true">&times;</span></button> \
             <div class="form-group"> \
               <input type="text" class="create-question-title form-control" placeholder="Enter a question" data-question-id="'+id+'"> \
             </div> \
@@ -30,7 +30,11 @@ var templates = {
         answer: function(answerType) {
           var answerCreator = '';
           if(answerType === 'multiple'){
-            answerCreator = '<div class="form-group answer-creator"><input type="text" class="create-answer form-control" placeholder="enter an answer choice" data-question-id="'+answerType+'"></div>';
+            answerCreator = '<div class="form-group answer-creator"> \
+            <button type="button" class="close rm-question" aria-label="Close"> \
+              <span aria-hidden="true">&times;</span> \
+            </button> \
+            <input type="text" class="create-answer form-control" placeholder="enter an answer choice" data-question-id="'+answerType+'"></div>';
           }else if(answerType === 'range'){
             answerCreator = '<div class="form-group answer-creator range-settings"><p>Users rate your question on a scale from </p><input type="number" class="create-answer range-min form-control"  min="0" max="1" data-question-id="'+answerType+'"><span> to </span><input type="number" class="create-answer range-max form-control"  min="1" max="100" data-question-id="'+answerType+'"></div>'
           }else if(answerType === 'text'){
@@ -80,8 +84,11 @@ $(document).on('click', '.add-another-answer', function(){
   var thisNewAnswerButton = $(thisQuestion).find('.add-another-answer');
 
   $(templates.answer('multiple')).insertBefore(thisNewAnswerButton);
+});
 
 
+$(document).on('click', '.close', function(){
+  $(this).parent().remove();
 });
 
 
@@ -141,9 +148,14 @@ $(document).on('click', '.submit-new-survey', function(){
     $('.alert-msg').html(response.responseText);
     // console.log(response);
   });
-
-
 });
+
+
+
+
+
+
+
 
 /***** create url string from title, check for uniqueness *****/
 
@@ -155,8 +167,9 @@ $(document).on('keyup', '#survey-title-input', function(){
 });
 
 
-var checkValidURL = function(){
+var checkAvailableURL = function(){
   var url = $('#survey-url-input').val();
+  // get handler at /validate/:url returns true or false
   $.get(siteURL+'/validate/'+url, function(res){
     // console.log("get res" + res);
   })
@@ -175,8 +188,8 @@ var checkValidURL = function(){
 }
 
 // events that check if the input url is already taken
-$(document).on('blur', '#survey-title-input', checkValidURL );
-$(document).on('blur', '#survey-url-input', checkValidURL);
-$(document).on('keyup', '#survey-url-input', checkValidURL);
+$(document).on('blur', '#survey-title-input', checkAvailableURL );
+$(document).on('blur', '#survey-url-input', checkAvailableURL);
+$(document).on('keyup', '#survey-url-input', checkAvailableURL);
 
 
