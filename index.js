@@ -133,7 +133,7 @@ passport.use('signup', new LocalStrategy({
         if (user) {
           console.log('User already exists');
           return done(null, false,
-            req.flash('message', 'User Already Exists'));
+             req.flash('message', 'User Already Exists'));
         } else {
           // if there is no user with that email
           // create the user
