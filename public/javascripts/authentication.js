@@ -1,3 +1,5 @@
+$( document ).ready(function() {
+
 
 /***** Handle the login/logout events in the DOM ********/
 
@@ -62,9 +64,7 @@
           setTimeout(function(){
             $('#login-modal').modal('hide');
 
-            // RENDER USER-SPECIFIC CONTENT
-
-
+            // RENDER USER-SPECIFIC CONTENT IN DOM
 
           }, 500);
 
@@ -84,7 +84,9 @@
       localStorage.setItem('token', null);
       localStorage.setItem('username', null);
       localStorage.setItem('uid', null);
-      authenticateDOM.updateNavBar();
-      authenticateDOM.allowCreatePost();
-      displayPosts.renderHandlebars();
+      // authenticateDOM.updateNavBar();
+      // authenticateDOM.allowCreatePost();
+      // displayPosts.renderHandlebars();
   });
+
+});

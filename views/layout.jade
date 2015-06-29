@@ -23,7 +23,8 @@ html
 
         .collapse.navbar-collapse
           ul.nav.navbar-nav.navbar-right
-            li.signup-link(href="#", data-toggle="modal", data-target=".bs-signup-modal-lg")
+            li.signup-link
+              a(href="#", data-toggle="modal", data-target=".bs-signup-modal-lg") signup
             li.login-link
               a(href="#", data-toggle="modal", data-target=".bs-login-modal-lg") login
             li.me.dropdown
@@ -44,9 +45,9 @@ html
                     .form-group
                       label(for="signup-passport") Create a Password
                       input.form-control(type="password", id="signup-password", placeholder="password")
-                    button.btn.btn-default(id="signup-submit", type="button")
+                    button.btn.btn-default(id="signup-submit", type="button") Create Account
 
-        .modal.fade.bs-signup-modal-lg(id="login-modal", tabindex="-1", role="dialog", aria-labelledby="myLargeModalLabel", aria-hidden="true")
+        .modal.fade.bs-login-modal-lg(id="login-modal", tabindex="-1", role="dialog", aria-labelledby="myLargeModalLabel", aria-hidden="true")
           .modal-dialog.modal-md
             .modal-content
               h1 login
@@ -55,9 +56,9 @@ html
                   label(for="login-email")
                   input.form-control(type="email", id="login-email", placeholder="email")
                 .form-group
-                  label(for="login-passport") Create a Password
+                  label(for="login-passport") Password
                   input.form-control(type="password", id="login-password", placeholder="password")
-                button.btn.btn-default(id="login-submit", type="button")
+                button.btn.btn-default(id="login-submit", type="button") Login
               div(id="login-alert")
     block content
 
