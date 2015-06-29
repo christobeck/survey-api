@@ -96,6 +96,26 @@ router.route('/:survey_url')
     }
   });
 
+
+
+// get those results
+router.route('/:survey_url/results')
+  .all(function(req, res, next) {
+    survey_url = req.params.survey_url;
+    survey = {};
+    Survey.findOne({'url' : survey_url}, function(err, s){
+      survey = s;
+      next();
+    });
+  })
+  .get(function(req, res) {
+    if(survey){
+      res.render('results', survey);
+    }else{
+      res.render('not-found');
+    }
+  });
+
 // Get survey by ID
 router.route('/:survey_id')
   .all(function(req, res, next) {
