@@ -1,3 +1,8 @@
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var expressSession = require('express-session');
+var User = require('./models/users');
+
 var express = require('express');
 var mongoose = require('mongoose');
 var path = require('path');
@@ -6,20 +11,16 @@ var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 var app = express();
 var util = require('util');
-var routes = require('./routes/index');
-var surveys = require('./routes/surveys');
-var bCrypt = require('bcrypt');
-var session = require('express-session');
-var MongoStore = require('connect-mongo')(session);
+var routes = require('./routes/auth');
+
+// var auth = require('./routes/auth')
+// var apiRouter = express.Router();
 var morgan = require('morgan');
+app.use(morgan('dev'));
+
 var jade = require('jade');
 var fs = require('fs');
 
-app.use(morgan('dev'));
-
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-app.set('views', './views');
 
 var MongoURI = process.env.MONGO_URI || 'mongodb://localhost/surveys';
 mongoose.connect(MongoURI, function(err, res) {
@@ -30,30 +31,23 @@ mongoose.connect(MongoURI, function(err, res) {
   }
 });
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(require('stylus').middleware(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'public')));
-app.use('/', routes);
-app.use('/surveys/', surveys);
+app.use(expressSession({
+  secret: 'mySecretKey'
+}));
 
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    secure: false
-  },
-  store: new MongoStore({
-    mongooseConnection: mongoose.connection
-  })
-}))
+/* GET login page. */
+passport.serializeUser(function(user, done) {
+  done(null, user._id);
+});
 
-
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var User = require('./models/users.js');
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
 
 passport.use('login', new LocalStrategy({
     passReqToCallback: true
@@ -85,25 +79,11 @@ passport.use('login', new LocalStrategy({
       }
     );
   }));
+
+
 var isValidPassword = function(user, password) {
   return bCrypt.compareSync(password, user.password);
 }
-
-passport.serializeUser(function(user, done) {
-  console.log('serializing user: %j', user);
-  console.log('result is %j', user.username);
-  done(null, user.id);
-
-});
-
-passport.deserializeUser(function(id, done) {
-  User.findById(id, function(error, user) {
-    console.log('deserializing user: %j', user);
-    // console.log('result is %j', user);
-    done(error, user);
-  });
-});
-
 
 passport.use('signup', new LocalStrategy({
     passReqToCallback: true
@@ -154,31 +134,8 @@ passport.use('signup', new LocalStrategy({
   }));
 var createHash = function(password) {
   return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
-};
+}
 
-app.use(passport.initialize());
-app.use(passport.session());
-
-app.post('/login', bodyParser());
-app.post('/login', jsonParser);
-app.post('/login', passport.authenticate('login', {
-  successRedirect: '/surveys',
-  failureRedirect: '/surveys/login'
-}));
-
-app.post('/signup', bodyParser());
-app.post('/signup', jsonParser);
-app.post('/signup', passport.authenticate('signup', {}));
-
-
-
-app.get('/logout', function(req, res) {
-  var name = req.user.username;
-  console.log("LOGGIN OUT " + req.user.username)
-  req.logout();
-  res.redirect('/');
-  req.session.notice = "You have successfully been logged out " + name + "!";
-});
 
 var server = app.listen(3000, function() {
   var host = server.address().address;
