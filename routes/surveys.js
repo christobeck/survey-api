@@ -6,12 +6,13 @@ var User = require('../models/users');
 var session = require('client-sessions');
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
+
 router.use(bodyParser.json({
   extended: true
-}))
+}));
 router.use(bodyParser.urlencoded({
   extended: false
-}))
+}));
 router.use(bodyParser.json());
 
 router.get('/', function(req, res) {
@@ -19,23 +20,24 @@ router.get('/', function(req, res) {
     res.render('list', {
       surveys: surveys
     });
-
   });
 });
 
 
 router.post('/', function(req, res) {
-    new Survey({
-      title: req.body.title,
-      url: req.body.url,
-      questions: req.body.questions
-    }).save(function(err, survey, count) {
-      if(err) {
-        res.status(400).send('Error saving new survey: ' + err);
-      } else {
-        res.json(survey);
-      }
-    });
+  new Survey({
+    title: req.body.title,
+    url: req.body.url,
+    questions: req.body.questions
+  }).save(function(err, survey, count) {
+    if(err) {
+      res.status(400).send('Error saving new survey: ' + err);
+    } else {
+      res.json(survey);
+    }
+
+  });
+});
 
 
 
