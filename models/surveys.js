@@ -2,8 +2,8 @@ var mongoose = require('mongoose')
 
 // a single possible answer to a question
 var answerSchema = new mongoose.Schema({
-  answer:{
-    type:String
+  answer: {
+    type: String
   },
   min:{
     type:Number
@@ -24,17 +24,17 @@ var questionSchema = new mongoose.Schema({
     required: true,
   },
   interfaceType: {
-    type:String,
+    type: String,
     enum: {
       values: enumeratedInterfaceTypes
     }
   },
-  answers:[answerSchema]
+  answers: [answerSchema]
 });
 
 var surveySchema = new mongoose.Schema({
   title: {
-    type:String,
+    type: String,
     required: true
   },
   url: {
@@ -45,15 +45,17 @@ var surveySchema = new mongoose.Schema({
   },
   questions:[questionSchema],
   answersPublic: {
-    type:Boolean,
+    type: Boolean,
     default: false
   },
-  activeThroughDate:{type: Date}, //set date when the survey is no longer editable
+  activeThroughDate: {
+    type: Date
+  }, //set date when the survey is no longer editable
 });
 
 var Survey = mongoose.model('Survey', surveySchema);
 // validate that a user cannot answer more than one question for a given answer
-Survey.schema.path('questions').schema.path('answers').schema.path('answered_users').validate(function(features){
+Survey.schema.path('questions').schema.path('answers').schema.path('answered_users').validate(function(features) {
   //1 create an array of all the user IDs
   //2 use forEach to iterate over all users and see if they already exist in the answers.answered_users hash for all the questions of the given survey
   //3. if so, flag this entry as invalid

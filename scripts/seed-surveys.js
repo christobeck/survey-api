@@ -20,19 +20,35 @@ async.series([
           question: "what do you think about this?",
           answers: [{
             answer: "its good",
-            answered_users: {1:true, 2:true, 3:true}
+            answered_users: {
+              1: true,
+              2: true,
+              3: true
+            }
           }, {
-            answer: "its good",
-            answered_users: {1:true, 2:true, 3:true}
+            answer: "its horrible",
+            answered_users: {
+              1: true,
+              2: true,
+              3: true
+            }
           }]
         }, {
           question: "what about this thing?",
           answers: [{
-            answer: "its good",
-            answered_users: {1:true, 2:true, 3:true}
+            answer: "ok",
+            answered_users: {
+              1: true,
+              2: true,
+              3: true
+            }
           }, {
-            answer: "its bad",
-            answered_users: {1:true, 2:true, 3:true}
+            answer: "best",
+            answered_users: {
+              1: true,
+              2: true,
+              3: true
+            }
           }]
         }]
       }, done);
@@ -42,22 +58,79 @@ async.series([
         title: "test survey-2",
         url: "test-survey-2",
         questions: [{
-          question: "what do you think about this?",
+          question: "what do you think about this one?",
           answers: [{
-            answer: "its good",
-            answered_users: {1:true, 2:true, 3:true}
+            answer: "Awesome",
+            answered_users: {
+              1: true,
+              2: true,
+              3: true
+            }
           }, {
-            answer: "its good",
-            answered_users: {1:true, 2:true, 3:true}
+            answer: "its horrible",
+            answered_users: {
+              1: true,
+              2: true,
+              3: true
+            }
           }]
         }, {
-          question: "what about this thing?",
+          question: "what about this other thing?",
           answers: [{
-            answer: "its good",
-            answered_users: {1:true, 2:true, 3:true}
+            answer: "not too bad",
+            answered_users: {
+              1: true,
+              2: true,
+              3: true
+            }
           }, {
-            answer: "its bad",
-            answered_users: {1:true, 2:true, 3:true}
+            answer: "its fine",
+            answered_users: {
+              1: true,
+              2: true,
+              3: true
+            }
+          }]
+        }]
+      }, done);
+    },
+    function(done) {
+      Survey.create({
+        title: "test survey-3",
+        url: "test-survey-3",
+        questions: [{
+          question: "what do you think about the product?",
+          answers: [{
+            answer: "could be better",
+            answered_users: {
+              1: true,
+              2: true,
+              3: true
+            }
+          }, {
+            answer: "better than the best",
+            answered_users: {
+              1: true,
+              2: true,
+              3: true
+            }
+          }]
+        }, {
+          question: "what abt this one",
+          answers: [{
+            answer: "nope",
+            answered_users: {
+              1: true,
+              2: true,
+              3: true
+            }
+          }, {
+            answer: "not at all",
+            answered_users: {
+              1: true,
+              2: true,
+              3: true
+            }
           }]
         }]
       }, done);
