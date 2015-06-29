@@ -1,8 +1,20 @@
-h1 #{title}
-
 //- This is the home page of survey says!
 //- use the extend keyword to include the header html in layout.jade
 //- use the each keyword to iterate over the surveys object
 //- create a list of survey titles using survey.title and create a link to their respective pages using a(href="surveys/survey.id")
-
 //- see project 1 section 6.5 views/list.jade for an example
+extend layout
+block content
+  p
+    | Current Survey Content.
+  p
+    | Previous Survey Title.
+block survey
+  .widget
+    h1 Old Surveys
+    p
+      | Survey Survey Survey Survey Survey Survey
+      | Survey Survey Survey. Survey Survey Survey.
+    p
+      | Survey Survey Survey Survey Survey Survey
+      | Survey.

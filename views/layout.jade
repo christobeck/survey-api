@@ -1,15 +1,26 @@
-doctype html
+//- doctype html
+//- html
+//-   head
+//-     title survey says
+//-     script(type="text/javascript", src="/javascripts/jquery.min.js")
+//-     script(type="text/javascript", src="/javascripts/app.js")
+//-     link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css", rel="stylesheet")
+//-     script(type="text/javascript", src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js")
+//-     link(rel='stylesheet', href='/stylesheets/style.css')
+//-   body
+//-     block content
+doctype
 html
   head
-    title survey says
-    script(type="text/javascript", src="/javascripts/jquery.min.js")
-    script(type="text/javascript", src="/javascripts/app.js")
-    link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css", rel="stylesheet")
-    script(type="text/javascript", src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js")
-
+    title Survey Says!
     link(rel='stylesheet', href='/stylesheets/style.css')
-
   body
-    block content
-
-
+    header
+      h1 Survey Says?
+    .container
+      .main-content
+        block content
+      .survey
+        block survey
+    footer
+      p Brought to you by The Babbage Group.
