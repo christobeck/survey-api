@@ -14,6 +14,16 @@ var MongoStore = require('connect-mongo')(session);
 var morgan = require('morgan');
 var jade = require('jade');
 var fs = require('fs');
+var stylus = require('stylus');
+var nib = require('nib');
+
+
+function compile(str, path) {
+  return stylus(str)
+    .set('filename', path)
+    .use(nib())
+};
+
 
 app.use(morgan('dev'));
 
@@ -32,7 +42,7 @@ mongoose.connect(MongoURI, function(err, res) {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(require('stylus').middleware(path.join(__dirname, 'public')));
+app.use(stylus.middleware({ src: __dirname + '/public', compile: compile }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/surveys/', surveys);

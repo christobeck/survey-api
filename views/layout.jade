@@ -1,17 +1,25 @@
-doctype html
+//- doctype html
+//- html
+//-   head
+//-     title survey says
+//-     script(type="text/javascript", src="/javascripts/jquery.min.js")
+//-     script(type="text/javascript", src="/javascripts/app.js")
+//-     link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css", rel="stylesheet")
+//-     script(type="text/javascript", src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js")
+//-     link(rel='stylesheet', href='/stylesheets/style.css')
+//-   body
+//-     block content
+doctype
 html
   head
-    title survey says
     script(type="text/javascript", src="/javascripts/jquery.min.js")
-    script(type="text/javascript", src="/javascripts/jquery-min.js")
-    script(type="text/javascript", src="/javascripts/main.js")
     script(type="text/javascript", src="/javascripts/single-ajax.js")
     script(type="text/javascript", src="/javascripts/authentication.js")
     script(type="text/javascript", src="/javascripts/create-survey.js")
     link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css", rel="stylesheet")
+    link(href="/stylesheets/style.css", rel="stylesheet")
+    link(href="/stylesheets/create-survey.css", rel="stylesheet")
     script(type="text/javascript", src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js")
-
-    link(rel='stylesheet', href='/stylesheets/style.css')
 
   body
     nav.navbar.navbar-default
@@ -63,5 +71,12 @@ html
                   input.form-control(type="password", id="login-password", placeholder="password")
                 button.btn.btn-default(id="login-submit", type="button") Login
               div(id="login-alert")
-    block content
+    .container
+      .main-content
+        block content
+      .survey
+        block survey
+  footer
+    p Brought to you by The Babbage Group.
+
 

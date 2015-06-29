@@ -1,83 +1,62 @@
-/*** global ***/
-
-
-
-
-
-/*** Create a new survey form ****/
-.create-question{
-  padding: 10px;
-  margin: 10px 0;
-  background-color: #eee;
+@import url("http://fonts.googleapis.com/css?family=Quicksand");
+body {
+  font-family: 'Georgia';
+  background-color: #faf9f0;
+  color: #444;
 }
-
-.new-survey {
-  background-color: #ddd;
-  padding: 20px;
-}
-
-.close{
-  color:#FF0000;
-}
-
-#survey-title-input{
-  height: 48px;
-  font-size: 26px;
-}
-
-#survey-url-input{
-  display: inline;
-  width: 50%;
-}
-
-.url-prefix {
-  float: left;
-  padding: 5px;
-  font-size: 15px;
-}
-
-.answers-container{
-    width: 100%;
-    background-color: white;
-    overflow: auto;
-}
-
-
-.form-group .answer-creator,
-.answer-creator {
-  padding: 10px;
-  background-color: white;
-  width: 100%;
-  margin: 5px;
-}
-
-.add-another-answer{
-  float: right;
-  margin: 10px;
-}
-
- .range-settings{
+header {
+  font-family: 'Quicksand';
+  padding: 50px 10px;
+  color: #fff;
+  font-size: 25px;
   text-align: center;
-  margin: 0 auto;
-  display: inline-block;
+  background-color: #0c83a9;
+  border-bottom: 1px solid #085c76;
+  text-shadow: 0px -1px 0px #085c76;
 }
-
-input[type="number"]{
-  width: 10%;
-  display: inline;
+.container {
+  width: 500px;
+  margin: 50px auto;
+  overflow: hidden;
 }
-
-.submit-new-survey{
-  display: block;
-  margin: 20px auto;
-  width: 100%;
+.main-content {
+  float: left;
+  width: 300px;
 }
-
-.alert{
-  display: none;
+.main-content p {
+  margin-bottom: 20px;
 }
-
-.invalid-input{
-  background-color: rgba(200, 0, 0, 0.2);
+.survey {
+  float: left;
+  width: 200px;
 }
-
+.survey .widget {
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  margin-left: 20px;
+  background-color: #faf9f0;
+  box-shadow: inset 0px 0px 0px 3px rgba(255,255,255,0.8), 0px 3px 0px -2px rgba(0,0,0,0.1);
+}
+.survey .widget h1 {
+  font-family: 'Quicksand';
+  margin: 13px 10px 4px;
+  padding-bottom: 10px;
+  border-bottom: 1px dotted #ddd;
+  border-radius: 2px 2px 0px 0px;
+  margin-bottom: 10px;
+}
+.survey .widget p {
+  font-size: 13px;
+  padding: 0px 10px;
+  margin-bottom: 10px;
+}
+p {
+  line-height: 1.8;
+}
+footer {
+  width: 500px;
+  margin: 50px auto;
+  border-top: 1px dotted #ccc;
+  padding-top: 5px;
+  font-size: 13px;
+}
