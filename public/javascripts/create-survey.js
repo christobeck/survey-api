@@ -19,7 +19,6 @@ var templates = {
             <label>Answer Format</label> \
             <ul class="nav nav-tabs answer-type-list" data-question-id="'+id+'" > \
               <li role="presentation"><a href="#" class="choose-answer-type" data-answer-type="multiple">Multiple Choice</a></li> \
-              <li role="presentation"><a href="#" class="choose-answer-type" data-answer-type="range">Range Slider</a></li> \
               <li role="presentation"><a href="#" class="choose-answer-type" data-answer-type="text" >Text Field</a></li> \
             </ul> \
           <div data-question-id="'+id+'" class="answers-container"></div> \
