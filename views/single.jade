@@ -3,19 +3,22 @@
 extends layout
 block content
   h1 #{survey.title}
+  p share this survey at /surveys/#{survey.url}
   div.row
-    each val, index in survey.questions
-      div.col-lg-6
-        div.ques-group(data-val='#{survey.id}') #{val.question}
+    div.col-lg-6
+      each val, index in survey.questions
+        div.ques-group(data-val='#{survey.id}')
+          h3 #{val.question}
         div.input-group
           if val.interfaceType ==="text"
             each value, answer in val.answers
               textarea.text-answer(name='#{val.id}',data-ansval='#{value.id}' rows="3")
           else
             each value, answer in val.answers
-              div.select-ans-div #{value.answer}
-                span.input-group-addon
-                  input.selected-answer(type="radio",name='#{val.id}',value='#{value.id}')
+              div.select-ans-div
+                //- span.input-group-addon
+                input.selected-answer(type="radio",name='#{val.id}',value='#{value.id}')
+                span #{value.answer}
   input.email-id(type='text', name="userName")
   button.submit-survey-response(type='button') Submit Response
 

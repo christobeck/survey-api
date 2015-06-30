@@ -17,11 +17,9 @@ var fs = require('fs');
 var stylus = require('stylus');
 var nib = require('nib');
 
-
 // var fs = require('fs');
 
 app.use(morgan('dev'));
-
 
 function compile(str, path) {
   return stylus(str)
@@ -31,7 +29,6 @@ function compile(str, path) {
 
 
 app.use(morgan('dev'));
-
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.set('views', './views');
@@ -52,7 +49,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/surveys/', surveys);
 
-
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
@@ -64,7 +60,6 @@ app.use(session({
     mongooseConnection: mongoose.connection
   })
 }))
-
 
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
@@ -121,7 +116,6 @@ passport.deserializeUser(function(id, done) {
     done(error, user);
   });
 });
-
 
 passport.use('signup', new LocalStrategy({
     passReqToCallback: true
@@ -197,8 +191,6 @@ app.post('/signup', passport.authenticate('signup', {}), function(req, res) {
   res.send();
 });
 
-
-
 app.get('/logout', function(req, res) {
   var name = req.user.username;
   console.log("LOGGIN OUT " + req.user.username)
@@ -207,10 +199,8 @@ app.get('/logout', function(req, res) {
   req.session.notice = "You have successfully been logged out " + name + "!";
 });
 
-
 app.use('/', routes);
 app.use('/surveys/', surveys);
-
 
 var server = app.listen(3000, function() {
   var host = server.address().address;
