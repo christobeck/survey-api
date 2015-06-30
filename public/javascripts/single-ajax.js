@@ -6,13 +6,23 @@ $(document).ready(function() {
     var response_id_array = [];
     var survey_id = $('.ques-group').data('val');
     var userName = $('.email-id').val();
-
+    $('.text-answer').each(function(question, answer) {
+      var response_store = {
+        question_id: answer.name,
+        answers: {
+          answer_id: $(answer).data('ansval'),
+          answer_type: answer.value
+        }
+      }
+      response_id_array.push(response_store);
+    });
     $('input[type=radio]').each(function(question, answer) {
       if (answer.checked) {
-        response_store = {
+        var response_store = {
           question_id: answer.name,
           answers: {
-            answer_id: answer.value
+            answer_id: answer.value,
+            answer_type: true
           }
         }
         response_id_array.push(response_store);
@@ -29,8 +39,9 @@ $(document).ready(function() {
       },
 
       dataType: "json",
-    }).done(function() {
-      alert("success!");
+    }).done(function(response) {
+      console.log(response);
+      // alert("success!");
       // }).fail(function() {
       //   alert("please login");
     });

@@ -14,7 +14,7 @@ async.series([
 
     function(done) {
       Survey.create({
-        title: "test survey",
+        title: "test survey-with text",
         url: "test-survey",
         questions: [{
           question: "what do you think about this?",
@@ -50,9 +50,16 @@ async.series([
               3: true
             }
           }]
+        }, {
+          question: "what about this page?",
+          interfaceType: "text",
+          answers: [{
+            answer: "its text",
+          }]
         }]
       }, done);
     },
+
     function(done) {
       Survey.create({
         title: "test survey-2",
