@@ -14,8 +14,9 @@ async.series([
 
     function(done) {
       Survey.create({
-        title: "test survey",
+        title: "test survey-with text",
         url: "test-survey",
+        answersPublic: "true",
         questions: [{
           question: "what do you think about this?",
           answers: [{
@@ -53,10 +54,12 @@ async.series([
         }]
       }, done);
     },
+
     function(done) {
       Survey.create({
         title: "test survey-2",
         url: "test-survey-2",
+        answersPublic: "true",
         questions: [{
           question: "what do you think about this one?",
           answers: [{

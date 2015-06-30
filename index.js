@@ -18,6 +18,11 @@ var stylus = require('stylus');
 var nib = require('nib');
 
 
+// var fs = require('fs');
+
+app.use(morgan('dev'));
+
+
 function compile(str, path) {
   return stylus(str)
     .set('filename', path)
@@ -80,20 +85,23 @@ passport.use('login', new LocalStrategy({
         // Username does not exist, log error & redirect back
         if (!user) {
           console.log('User Not Found with username ' + username);
-          return done(null, false,
-            req.flash('message', 'User Not found.'));
+          return done(null, false, {
+            message: 'User Not found.'
+          })
         }
         // User exists but wrong password, log the error
         if (!isValidPassword(user, password)) {
           console.log('Invalid Password');
-          return done(null, false,
-            req.flash('message', 'Invalid Password'));
+          return done(null, false, {
+            message: 'Invalid Password'
+          });
         }
-        // User and password both match, return user from
-        // done method which will be treated like success
         return done(null, user);
       }
-    );
+      // User and password both match, return user from
+      // done method which will be treated like success
+
+    )
   }));
 var isValidPassword = function(user, password) {
   return bCrypt.compareSync(password, user.password);
@@ -178,7 +186,16 @@ app.post('/login', passport.authenticate('login', {
 
 app.post('/signup', bodyParser());
 app.post('/signup', jsonParser);
-app.post('/signup', passport.authenticate('signup', {}));
+app.post('/signup', passport.authenticate('signup', {}), function(req, res) {
+  console.log()
+  var contact = req.body;
+  if (req.user !== undefined) {
+    console.log(contact);
+    console.log(req.user.id)
+
+  }
+  res.send();
+});
 
 
 
@@ -189,6 +206,11 @@ app.get('/logout', function(req, res) {
   res.redirect('/');
   req.session.notice = "You have successfully been logged out " + name + "!";
 });
+
+
+app.use('/', routes);
+app.use('/surveys/', surveys);
+
 
 var server = app.listen(3000, function() {
   var host = server.address().address;

@@ -1,34 +1,49 @@
-var passport = require('passport');
-var expressSession = require('express-session');
 var express = require('express');
-var router = express.Router();
+var app = express();
+var mongoose = require('mongoose');
+var path = require('path');
+var cookieParser = require('cookie-parser')
+var bodyParser = require('body-parser');
+var jsonParser = bodyParser.json();
 
-router.get('/', function(req, res) {
-  // Display the Login page with any flash message, if any
-  res.render('login', {
-    message: req.flash('message')
-  });
+var util = require('util');
+var bCrypt = require('bcrypt');
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
+var morgan = require('morgan');
+var jade = require('jade');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var User = require('../models/users.js');
+var auth = require('../authorization/auth');
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.get('/me', function(req, res) {
+  console.log(req.user);
+  res.json(req.user || {});
 });
 
-/* Handle Login POST */
-router.post('/', passport.authenticate('login', {
-  successRedirect: '/home',
-  failureRedirect: '/',
-  failureFlash: true
+app.post('/login', bodyParser());
+app.post('/login', jsonParser);
+app.post('/login', passport.authenticate('login', {
+  successRedirect: '/surveys',
+  failureRedirect: '/surveys/login'
 }));
 
-/* GET Registration Page */
-router.get('/signup', function(req, res) {
-  res.render('register', {
-    message: req.flash('message')
-  });
+app.post('/signup', bodyParser());
+app.post('/signup', jsonParser);
+app.post('/signup', passport.authenticate('signup', {}));
+
+
+
+app.get('/logout', function(req, res) {
+  var name = req.user.username;
+  console.log("LOGGIN OUT " + req.user.username)
+  req.logout();
+  res.redirect('/');
+  req.session.notice = "You have successfully been logged out " + name + "!";
 });
 
-/* Handle Registration POST */
-router.post('/signup', passport.authenticate('signup', {
-  successRedirect: '/home',
-  failureRedirect: '/signup',
-  failureFlash: true
-}));
-
-module.exports = router
+module.exports = app;

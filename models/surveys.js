@@ -11,7 +11,9 @@ var answerSchema = new mongoose.Schema({
   max:{
     type:Number
   },
-  answered_users: {}, //a hash of all the user id's who chose this answer to a given question.
+  answered_users: {
+    type: mongoose.Schema.Types.Mixed
+  } //a hash of all the user id's who chose this answer to a given question.
 });
 
 // the range slider could be for cases of "on a scale from 1-5 etc.." where we don't need titles for specific answers.
@@ -29,7 +31,8 @@ var questionSchema = new mongoose.Schema({
       values: enumeratedInterfaceTypes
     }
   },
-  answers: [answerSchema]
+  answers: [answerSchema],
+  user_answers: []
 });
 
 var surveySchema = new mongoose.Schema({
