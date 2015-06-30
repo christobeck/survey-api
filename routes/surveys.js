@@ -98,23 +98,23 @@ router.route('/:survey_url')
 
 
 
-// get those results
-router.route('/:survey_url/results')
-  .all(function(req, res, next) {
-    survey_url = req.params.survey_url;
-    survey = {};
-    Survey.findOne({'url' : survey_url}, function(err, s){
-      survey = s;
-      next();
-    });
-  })
-  .get(function(req, res) {
-    if(survey){
-      res.render('results', survey);
-    }else{
-      res.render('not-found');
-    }
-  });
+// // get those results
+// router.route('/:survey_url/results')
+//   .all(function(req, res, next) {
+//     survey_url = req.params.survey_url;
+//     survey = {};
+//     Survey.findOne({'url' : survey_url}, function(err, s){
+//       survey = s;
+//       next();
+//     });
+//   })
+//   .get(function(req, res) {
+//     if(survey){
+//       res.render('results', survey);
+//     }else{
+//       res.render('not-found');
+//     }
+//   });
 
 // Get survey by ID
 router.route('/:survey_id')
@@ -276,7 +276,7 @@ router.route('/:survey_id/results')
   console.log("step9:result:" + JSON.stringify(survey_result));
   console.log("step10:ques:" + survey_result[0].answers);
   console.log("step11:ans:" + survey_result[1].question_title);
-  res.json(survey_result)
+  res.render('results', {surveys: survey_result})
 })
 
 

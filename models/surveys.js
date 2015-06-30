@@ -40,6 +40,7 @@ var surveySchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  users_responded: [],
   url: {
     type:String,
     required:true,

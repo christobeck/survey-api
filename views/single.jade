@@ -4,6 +4,7 @@ extends layout
 block content
   h1 #{survey.title}
   p share this survey at /surveys/#{survey.url}
+  a(href="/surveys/#{survey.id}/results") results
   div.row
     div.col-lg-6
       each val, index in survey.questions

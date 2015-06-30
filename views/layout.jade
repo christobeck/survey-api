@@ -20,18 +20,21 @@ html
             span.icon-bar
             span.icon-bar
         a.navbar-brand(href="#") survey says
+        ul.nav.navbar-nav
+          li
+            a(href="/surveys/create") Create a survey
 
         .collapse.navbar-collapse
-          ul.nav.navbar-nav.navbar-right
-            li.signup-link
-              a(href="#", data-toggle="modal", data-target=".bs-signup-modal-lg") signup
-            li.login-link
-              a(href="#", data-toggle="modal", data-target=".bs-login-modal-lg") login
-            li.me.dropdown
-            a.dropdown-toggle(data-toggle="dropdown", role="button", aria-expanded="false")
-              ul.dropdown-menu(role="menu")
-                li.logout-link
-                  a(href="#") log out
+          //- ul.nav.navbar-nav.navbar-right
+          //-   li.signup-link
+          //-     a(href="#", data-toggle="modal", data-target=".bs-signup-modal-lg") signup
+          //-   li.login-link
+          //-     a(href="#", data-toggle="modal", data-target=".bs-login-modal-lg") login
+          //-   li.me.dropdown
+          //-   a.dropdown-toggle(data-toggle="dropdown", role="button", aria-expanded="false")
+          //-     ul.dropdown-menu(role="menu")
+          //-       li.logout-link
+          //-         a(href="#") log out
         .modal.fade.bs-signup-modal-lg(id="signup-modal", tabindex="-1", role="dialog", aria-labelledby="myLargeModalLabel", aria-hidden="true")
           .modal-dialog.modal-md
             .modal-content
