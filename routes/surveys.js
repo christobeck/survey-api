@@ -83,7 +83,7 @@ router.route('/:survey_id')
     var userId = req.user.id;
     console.log("step4: user Id:" + userId)
 
-    for (var i = 1; i < response_array.length; i++) {
+    for (var i = 0; i < response_array.length; i++) {
       console.log("step4b" + response_array[i]);
       var response_question_id = response_array[i].question_id;
       console.log("step5:" +
@@ -93,23 +93,7 @@ router.route('/:survey_id')
       console.log("step6:" + response_answer_id);
       var response_answer_val = response_array[i].answers.answer_type;
       console.log("step7:" + response_answer_val);
-      var stored_questions_array = survey.questions
-
-      // Survey.findById(survey_id, function(e, data) {
-      //   if (e) {
-      //     console.log(e);
-      //   }
-      //   data.questions.id(response_question_id).answers.id(response_answer_id).answered_users[userId] = true;
-      //   // console.log("step imp" + JSON.stringify(data));
-      //   data.markModified('questions.answers');
-      //   data.save(function(err, survey) {
-      //     console.log(err);
-      //     console.log(survey.questions.id(response_question_id).answers.id(response_answer_id).answered_users[userId]);
-      //     res.send(survey);
-      //   });
-      // data.questions.id(response_question_id).answers.id(response_answer_id).answered_users[userId] = response_answer_val;
-      // console.log("step imp2 :" + JSON.stringify(data));
-      // data.save();
+      var stored_questions_array = survey.questions;
 
       Survey.update({
         _id: survey_id,
@@ -151,6 +135,7 @@ router.route('/:survey_id/results')
   })
 // console.log("step2: ques  " + surveys.questions);
 .get(function(req, res) {
+  console.log("survey public?: " + survey.answersPublic);
   var survey_result = [];
   for (var i = 0; i < survey.questions.length; i++) {
 
@@ -169,7 +154,8 @@ router.route('/:survey_id/results')
       var count = 0;
       console.log("step6: outside count check:" + count)
       for (var k = 0; k < ans_user_array.length; k++) {
-        console.log(ans_user_array[k]);
+        console.log("ans user array:" +
+          ans_user_array.length);
         if (ans_user_array[k] === ans_id) {
           count += 1;
           console.log("step7 inside count check:" + count);
@@ -189,9 +175,9 @@ router.route('/:survey_id/results')
     });
   }
 
-  console.log("step7:result:" + JSON.stringify(survey_result));
-  console.log("step8:ques:" + survey_result[0].answers);
-  console.log("step9:ans:" + survey_result[1].question_title);
+  console.log("step9:result:" + JSON.stringify(survey_result));
+  console.log("step10:ques:" + survey_result[0].answers);
+  console.log("step11:ans:" + survey_result[1].question_title);
   res.json(survey_result)
 })
 

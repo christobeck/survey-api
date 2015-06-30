@@ -16,6 +16,7 @@ async.series([
       Survey.create({
         title: "test survey-with text",
         url: "test-survey",
+        answersPublic: "true",
         questions: [{
           question: "what do you think about this?",
           answers: [{
@@ -50,12 +51,6 @@ async.series([
               3: true
             }
           }]
-        }, {
-          question: "what about this page?",
-          interfaceType: "text",
-          answers: [{
-            answer: "its text",
-          }]
         }]
       }, done);
     },
@@ -64,6 +59,7 @@ async.series([
       Survey.create({
         title: "test survey-2",
         url: "test-survey-2",
+        answersPublic: "true",
         questions: [{
           question: "what do you think about this one?",
           answers: [{
