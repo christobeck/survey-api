@@ -7,17 +7,12 @@
 extends layout
 block content
   header
-    h1 #{title}
-  p
-    | Current Survey Content.
-  p
-    | Previous Survey Title.
-block survey
+    h1 Survey Says
+
+
   .widget
-    h1 Old Surveys
-    p
-      | Survey Survey Survey Survey Survey Survey
-      | Survey Survey Survey. Survey Survey Survey.
-    p
-      | Survey Survey Survey Survey Survey Survey
-      | Survey.
+    h1 Take a Survey
+    each survey in surveys
+      a(href="/surveys/#{survey.url}")
+        h2 #{survey.title}
+
