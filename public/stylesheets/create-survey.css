@@ -78,3 +78,12 @@ input[type="number"]{
   background-color: rgba(200, 0, 0, 0.2);
 }
 
+.input-group-addon {
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  color: #555;
+  text-align: center;
+  border-radius: 4px;
+}
