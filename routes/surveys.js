@@ -157,6 +157,8 @@ router.route('/:survey_id/results')
     console.log("step2: ques length " + survey.questions.length);
     var stored_ans = survey.questions[i].answers;
     console.log("step3: " + stored_ans);
+    var answers = []
+
     for (var j = 0; j < stored_ans.length; j++) {
 
       var ans_id = stored_ans[j].id;
@@ -164,7 +166,6 @@ router.route('/:survey_id/results')
       var ans_user_array = survey.questions[i].user_answers
       console.log("step5: " + ans_user_array);
       var question_title = survey.questions[i].question;
-      var answers = []
       var count = 0;
       console.log("step6: outside count check:" + count)
       for (var k = 0; k < ans_user_array.length; k++) {
@@ -175,13 +176,12 @@ router.route('/:survey_id/results')
         }
 
       }
-      next();
       console.log("step6: after count check:" + count)
       answers.push({
         answer_title: stored_ans[j].answer,
         count: count
       })
-      console.log("step6:answers:" + answers)
+      console.log("step6:answers:" + JSON.stringify(answers));
     }
     survey_result.push({
       question_title: question_title,
@@ -189,7 +189,7 @@ router.route('/:survey_id/results')
     });
   }
 
-  console.log("step7:result:" + survey_result);
+  console.log("step7:result:" + JSON.stringify(survey_result));
   console.log("step8:ques:" + survey_result[0].answers);
   console.log("step9:ans:" + survey_result[1].question_title);
   res.json(survey_result)
