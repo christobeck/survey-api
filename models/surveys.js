@@ -11,7 +11,7 @@ var answerSchema = new mongoose.Schema({
   max:{
     type:Number
   },
-  answered_users: {} //a hash of all the user id's who chose this answer to a given question.
+  answered_users: {}, //a hash of all the user id's who chose this answer to a given question.
 });
 
 // the range slider could be for cases of "on a scale from 1-5 etc.." where we don't need titles for specific answers.
@@ -52,12 +52,23 @@ var surveySchema = new mongoose.Schema({
   }, //set date when the survey is no longer editable
 });
 
+// answerSchema.virtual('count').get(function() {
+//   return this.answered_users.length;
+// });
+
+surveySchema.virtual('count').get(function() {
+  return 'buttsttstststst';
+});
+
 var Survey = mongoose.model('Survey', surveySchema);
 // validate that a user cannot answer more than one question for a given answer
 Survey.schema.path('questions').schema.path('answers').schema.path('answered_users').validate(function(features) {
   //1 create an array of all the user IDs
   //2 use forEach to iterate over all users and see if they already exist in the answers.answered_users hash for all the questions of the given survey
   //3. if so, flag this entry as invalid
-})
+});
+
+
+
 
 module.exports = Survey;
