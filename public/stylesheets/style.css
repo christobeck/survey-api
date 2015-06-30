@@ -1,6 +1,6 @@
 @import url("http://fonts.googleapis.com/css?family=Quicksand");
 body {
-  font-family: 'Georgia';
+  font-family: 'Quicksand';
   background-color: #faf9f0;
   color: #444;
 }
@@ -15,13 +15,13 @@ header {
   text-shadow: 0px -1px 0px #085c76;
 }
 .container {
-  width: 500px;
+  width: 800px;
   margin: 50px auto;
   overflow: hidden;
 }
 .main-content {
   float: left;
-  width: 300px;
+  width: 500px;
 }
 .main-content p {
   margin-bottom: 20px;
@@ -62,4 +62,13 @@ footer {
   border-top: 1px dotted #ccc;
   padding-top: 5px;
   font-size: 13px;
+}
+.input-group-addon {
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  color: #555;
+  text-align: center;
+  border-radius: 4px;
 }

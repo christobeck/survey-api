@@ -50,7 +50,7 @@ var templates = {
 
 $( document ).ready(function() {
   $('.questions-container').append(templates.question);
-  $('.url-prefix').html(siteURL);
+  $('.url-prefix').html(siteURL + '/');
 });
 
 
